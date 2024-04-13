@@ -11,13 +11,13 @@ public class Tests
     }
 
     [Test]
-    public async Task WhenQueryIsHandled_ThenReturnTypeIsCorrect()
+    public async Task GivenGetInventoryQueryHandler_WhenQueryIsHandled_ThenReturnTypeIsCorrect()
     {
         // arrange
-        var query = new GetInventoryQueryHandler();
+        var handler = new GetInventoryQueryHandler();
 
         // act
-        var result = await query.Handle(new GetInventoryQuery(), new CancellationToken());
+        var result = await handler.Handle(new GetInventoryQuery(), new CancellationToken());
 
         // assert
         result.Should().BeOfType<List<InventoryItem>>();
