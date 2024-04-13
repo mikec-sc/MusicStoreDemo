@@ -53,3 +53,8 @@ This project is licensed under the [MIT License](LICENSE).
 - **.NET Core**: A cross-platform, high-performance framework for building modern cloud-based, internet-connected applications.
 - **Clean Architecture**: A software design philosophy that separates concerns in a way that promotes maintainability and testability.
 - **SVG Repo**: Provides free to use SVG files.
+
+## TODO
+
+- Make the ReactApp wait for the .NET Core API to come online when running in dev mode
+- WebUI unit tests

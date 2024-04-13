@@ -1,4 +1,4 @@
-﻿namespace Application.Inventory.Queries.GetInventory;
+﻿namespace MusicStore.Application.Inventory.Queries.GetInventory;
 
 public class InventoryItem
 {
