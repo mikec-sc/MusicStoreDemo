@@ -13,7 +13,9 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
         // Register known exception types and handlers.
         _exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>
             {
-                { typeof(NotFoundException), HandleNotFoundException }
+                { typeof(NotFoundException), HandleNotFoundException },
+                { typeof(InvalidOperationException), HandleInvalidOperationException },
+                { typeof(ValidationException), HandleValidationException }
             };
     }
 
@@ -52,11 +54,27 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
         context.ExceptionHandled = true;
     }
 
+    private void HandleInvalidOperationException(ExceptionContext context)
+    {
+        var exception = (InvalidOperationException)context.Exception;
+
+        var details = new ProblemDetails
+        {
+            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+            Title = "Invalid operation.",
+            Detail = exception.Message
+        };
+
+        context.Result = new BadRequestObjectResult(details);
+
+        context.ExceptionHandled = true;
+    }
+
     private void HandleNotFoundException(ExceptionContext context)
     {
         var exception = (NotFoundException)context.Exception;
 
-        var details = new ProblemDetails()
+        var details = new ProblemDetails
         {
             Type = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
             Title = "The specified resource was not found.",
@@ -64,6 +82,20 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
         };
 
         context.Result = new NotFoundObjectResult(details);
+
+        context.ExceptionHandled = true;
+    }
+
+    private void HandleValidationException(ExceptionContext context)
+    {
+        var exception = (ValidationException)context.Exception;
+
+        var details = new ValidationProblemDetails(exception.Errors)
+        {
+            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
+        };
+
+        context.Result = new BadRequestObjectResult(details);
 
         context.ExceptionHandled = true;
     }

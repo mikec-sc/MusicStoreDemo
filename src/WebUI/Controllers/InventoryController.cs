@@ -18,7 +18,7 @@ public class InventoryController : ApiControllerBase
     }
 
     /// <summary>
-    /// Update InventoryItems StockLevel in DB
+    /// Update InventoryItems StockLevel in DB.
     /// </summary>
     /// <param name="command"></param>
     /// <returns></returns>

@@ -58,3 +58,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 - Make the ReactApp wait for the .NET Core API to come online when running in dev mode
 - Move the DB test data to a JSON file
+- Style the FE, maybe using bootstrap
+- Add validators for mediator requests
+- Add more API endpoints for delete and create
+- Add authorization to create and delete endpoints

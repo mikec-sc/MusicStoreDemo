@@ -7,6 +7,7 @@ interface InventoryItem {
     year: number;
     genre: string;
     price: number;
+    stockCount: number;
 }
 
 function InventoryList() {

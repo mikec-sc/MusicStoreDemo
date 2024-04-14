@@ -1,17 +1,12 @@
 ﻿using MediatR;
 using MusicStore.Application.Common.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MusicStore.Application.Common.Exceptions;
 
 namespace MusicStore.Application.Inventory.Commands;
 
 public record PurchaseInventoryItemsCommand : IRequest
 {
-    public Dictionary<int, int> InventoryItemsToPurchase { get; init; }
+    public Dictionary<int, int> InventoryItemsToPurchase { get; init; } = null!;
 }
 public class PurchaseInventoryItemsCommandHandler : IRequestHandler<PurchaseInventoryItemsCommand>
 {
@@ -31,6 +26,10 @@ public class PurchaseInventoryItemsCommandHandler : IRequestHandler<PurchaseInve
 
             if (entity == null)
                 throw new NotFoundException(nameof(Domain.Entities.InventoryItem), inventoryItemToPurchase.Key);
+
+            // TODO: this could be thread un-safe if 2 purchases happen at the same time, could be a dblock or bad logic
+            if (entity.StockCount < inventoryItemToPurchase.Value)
+                throw new InvalidOperationException($"{nameof(Domain.Entities.InventoryItem)} insufficient stock for {entity.Id}");
 
             entity.StockCount -= inventoryItemToPurchase.Value;
         }
