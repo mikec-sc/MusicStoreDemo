@@ -26,6 +26,7 @@ function InventoryList() {
                     <th>Year</th>
                     <th>Genre</th>
                     <th>Price</th>
+                    <th>Stock Count</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +37,7 @@ function InventoryList() {
                         <td>{inventoryItem.year}</td>
                         <td>{inventoryItem.genre}</td>
                         <td>{inventoryItem.price}</td>
+                        <td>{inventoryItem.stockCount}</td>
                     </tr>
                 )}
             </tbody>

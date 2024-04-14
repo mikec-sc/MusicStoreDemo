@@ -1,4 +1,4 @@
-import InventoryList from './InventoryList';
+import InventoryList from './components/InventoryList';
 
 function App() {
     return (
