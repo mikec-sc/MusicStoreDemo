@@ -29,6 +29,9 @@ public class PurchaseInventoryItemsCommandHandler : IRequestHandler<PurchaseInve
             var entity = await _context.InventoryItems
                 .FindAsync(new object[] { inventoryItemToPurchase.Key }, cancellationToken);
 
+            if (entity == null)
+                throw new NotFoundException(nameof(Domain.Entities.InventoryItem), inventoryItemToPurchase.Key);
+
             entity.StockCount -= inventoryItemToPurchase.Value;
         }
 
