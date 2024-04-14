@@ -1,3 +1,4 @@
+
 # Music Store Demo: React App with .NET Core API (Clean Architecture)
 
 This project is a demonstration of a music store application, with a React frontend interacting with a .NET Core API backend following the principles of Clean Architecture. The React app provides a user-friendly interface for browsing, searching, and purchasing music items, while the .NET Core API adheres to Clean Architecture principles for maintainability, testability, and separation of concerns.
@@ -21,10 +22,17 @@ This project is a demonstration of a music store application, with a React front
 2. **Open the Solution in Visual Studio 2022**:
     - Navigate to the solution directory and open `MusicStore.sln` in Visual Studio 2022.
 3. **Set Up Debug Configuration**:
-    - Ensure the React app and .NET Core API projects are set as startup projects.
+    - Ensure the React app and .NET Core API projects are both set as startup projects.
 4. **Run the Solution**:
     - Simply run the solution in Debug mode from Visual Studio 2022.
-    - **Note**: The back-end is slower to start than the front-end so you will need to refresh your browser after the back-end is ready.
+
+**Troubleshooting**:
+ - On first-time run, when prompted, accept any certificate changes.
+ - The back-end is slower to start than the front-end so you will need to
+   refresh your browser after the back-end is ready.
+   If you get any errors around ```FSLegacyMainResolve``` or ```Cannot find package
+   esbuild\package.json``` then delete
+   \src\WebUI\ClientApp\node_modules and try again.
 
 ## Configuration
 
