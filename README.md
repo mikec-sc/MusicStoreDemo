@@ -62,3 +62,4 @@ This project is licensed under the [MIT License](LICENSE).
 - Add validators for mediator requests
 - Add more API endpoints for delete and create
 - Add authorization to create and delete endpoints
+- Introduce AutoFixture to make unit testing easier

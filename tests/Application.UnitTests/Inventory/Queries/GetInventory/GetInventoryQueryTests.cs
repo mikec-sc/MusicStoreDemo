@@ -21,7 +21,7 @@ public class GetInventoryQueryTests
             new()
             {
                 Id = 1, Title = "Abbey Road", Artist = "The Beatles", Year = 1969, Genre = "Rock",
-                Price = 12.99m
+                Price = 12.99m, StockCount = 100
             }
         };
         _dbContext = new Mock<IApplicationDbContext>();

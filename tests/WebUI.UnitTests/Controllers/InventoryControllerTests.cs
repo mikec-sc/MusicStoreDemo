@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using MusicStore.Application.Inventory.Queries.GetInventory;
 using MusicStore.WebUI.Controllers;
-using MusicStore.Application.Inventory.Commands;
+using MusicStore.Application.Inventory.Commands.PurchaseInventoryItems;
 
 namespace MusicStore.WebUI.UnitTests.Controllers;
 

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using MusicStore.Application.Inventory.Commands;
+using MusicStore.Application.Inventory.Commands.PurchaseInventoryItems;
 using MusicStore.Application.Inventory.Queries.GetInventory;
 
 namespace MusicStore.WebUI.Controllers;
