@@ -24,7 +24,6 @@ public class GetInventoryQueryHandler : IRequestHandler<GetInventoryQuery, IEnum
         return await _context.InventoryItems
             .AsNoTracking()
             .ProjectTo<InventoryItem>(_mapper.ConfigurationProvider)
-            .OrderBy(t => t.Artist)
             .ToListAsync(cancellationToken);
     }
 }

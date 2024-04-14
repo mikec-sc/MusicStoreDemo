@@ -3,10 +3,11 @@ using MusicStore.Application.Inventory.Queries.GetInventory;
 using FluentAssertions;
 using Moq;
 using MusicStore.Application.Common.Interfaces;
+using MockQueryable.Moq;
 
 namespace MusicStore.Application.UnitTests.Inventory.Queries.GetInventory;
 
-public class Tests
+public class GetInventoryQueryTests
 {
     private Mock<IApplicationDbContext> _dbContext = null!;
     private Mock<IMapper> _mapper = null!;
@@ -14,8 +15,24 @@ public class Tests
     [SetUp]
     public void Setup()
     {
+
+        var entities = new List<Domain.Entities.InventoryItem>
+        {
+            new()
+            {
+                Id = 1, Title = "Abbey Road", Artist = "The Beatles", Year = 1969, Genre = "Rock",
+                Price = 12.99m
+            }
+        };
         _dbContext = new Mock<IApplicationDbContext>();
+        _dbContext.Setup(x => x.InventoryItems)
+            .Returns(entities.AsQueryable().BuildMockDbSet().Object);
+
         _mapper = new Mock<IMapper>();
+        _mapper.Setup(x => x.ConfigurationProvider)
+            .Returns(
+                () => new MapperConfiguration(
+                    cfg => { cfg.CreateMap<Domain.Entities.InventoryItem, InventoryItem>(); }));
     }
 
     [Test]
