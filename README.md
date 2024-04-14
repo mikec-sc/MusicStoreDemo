@@ -10,7 +10,7 @@ This project is a demonstration of a music store application, with a React front
 - **Shopping Cart**: Add items to a shopping cart for easy checkout.
 - **Order Processing**: Complete orders for music purchases.
 
-## Prerequisite
+## Prerequisites
 
 1. **[.NET 7.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)**: The solution uses NuGet packages dependent on this version of .NET.
 2. **[Microsoft Visual Studio Community 2022](https://visualstudio.microsoft.com/vs/community/)**: Not mandatory to use 2022 Community but the solution was developed using this version of Visual Studio, so the versions of MSBuild and such will be appropriate.
@@ -18,7 +18,8 @@ This project is a demonstration of a music store application, with a React front
 
 ## Installation and Instructions
 
-1. **Clone the Repository**: `git clone https://github.com/mikec-sc/MusicStoreDemo.git`
+1. **Clone the Repository**:
+    - `git clone https://github.com/mikec-sc/MusicStoreDemo.git`
 2. **Open the Solution in Visual Studio 2022**:
     - Navigate to the solution directory and open `MusicStore.sln` in Visual Studio 2022.
 3. **Set Up Debug Configuration**:
