@@ -57,5 +57,4 @@ This project is licensed under the [MIT License](LICENSE).
 ## TODO
 
 - Make the ReactApp wait for the .NET Core API to come online when running in dev mode
-- WebUI unit tests
 - Move the DB test data to a JSON file
