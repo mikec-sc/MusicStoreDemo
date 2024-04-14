@@ -6,6 +6,10 @@ namespace MusicStore.WebUI.Controllers;
 
 public class InventoryController : ApiControllerBase
 {
+    /// <summary>
+    /// Retrieves a list of all InventoryItems from the database.
+    /// </summary>
+    /// <returns>A collection of InventoryItem objects representing the inventory items stored in the database.</returns>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IEnumerable<InventoryItem>> Get()
@@ -14,9 +18,9 @@ public class InventoryController : ApiControllerBase
     }
 
     /// <summary>
-    /// Update InventoryItem to booking
+    /// Update InventoryItems StockLevel in DB
     /// </summary>
-    /// <param name="id"></param>
+    /// <param name="command"></param>
     /// <returns></returns>
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status200OK)]
