@@ -80,27 +80,27 @@ public class ApplicationDbContextInitialiser
             _context.InventoryItems.Add(new()
             {
                 Id = 1, Title = "Abbey Road", Artist = "The Beatles", Year = 1969, Genre = "Rock",
-                Price = 12.99m
+                Price = 12.99m, StockCount = 10
             });
             _context.InventoryItems.Add(new()
             {
                 Id = 2, Title = "Thriller", Artist = "Michael Jackson", Year = 1982, Genre = "Pop",
-                Price = 14.99m
+                Price = 14.99m, StockCount = 12
             });
             _context.InventoryItems.Add(new()
             {
                 Id = 3, Title = "Dark Side of the Moon", Artist = "Pink Floyd", Year = 1973,
-                Genre = "Progressive Rock", Price = 11.99m
+                Genre = "Progressive Rock", Price = 11.99m, StockCount = 0
             });
             _context.InventoryItems.Add(new()
             {
                 Id = 4, Title = "Back in Black", Artist = "AC/DC", Year = 1980, Genre = "Rock",
-                Price = 10.99m
+                Price = 10.99m, StockCount = 100
             });
             _context.InventoryItems.Add(new()
             {
                 Id = 5, Title = "Rumours", Artist = "Fleetwood Mac", Year = 1977, Genre = "Rock",
-                Price = 13.49m
+                Price = 13.49m, StockCount = 15
             });
 
             await _context.SaveChangesAsync();

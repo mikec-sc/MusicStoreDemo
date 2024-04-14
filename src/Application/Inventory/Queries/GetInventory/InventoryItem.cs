@@ -10,4 +10,5 @@ public class InventoryItem : IMapFrom<Domain.Entities.InventoryItem>
     public int Year { get; set; }
     public string? Genre { get; set; }
     public decimal Price { get; set; }
+    public int StockCount { get; set; }
 }
