@@ -8,6 +8,7 @@ interface InventoryItem {
     genre: string;
     price: number;
     stockCount: number;
+    quantity: number;
 }
 
 function InventoryList() {
@@ -28,6 +29,7 @@ function InventoryList() {
                     <th>Genre</th>
                     <th>Price</th>
                     <th>Stock Count</th>
+                    <th>Quantity</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,6 +41,16 @@ function InventoryList() {
                         <td>{inventoryItem.genre}</td>
                         <td>{inventoryItem.price}</td>
                         <td>{inventoryItem.stockCount}</td>
+                        <td>
+                            <input
+                                type="number"
+                                min="0"
+                                value={inventoryItem.quantity}
+                                onChange={(e) => handleQuantityChange(inventoryItem.id, parseInt(e.target.value))}
+                            />
+                            <button onClick={() => incrementQuantity(inventoryItem.id)}>+</button>
+                            <button onClick={() => decrementQuantity(inventoryItem.id)}>-</button>
+                        </td>
                     </tr>
                 )}
             </tbody>
@@ -55,7 +67,31 @@ function InventoryList() {
     async function populateInventoryItems() {
         const response = await fetch('inventory');
         const data = await response.json();
-        setInventoryItems(data);
+        setInventoryItems(data.map((item: InventoryItem) => ({ ...item, quantity: 0 })));
+    }
+
+    function handleQuantityChange(id: string, quantity: number) {
+        setInventoryItems(prevItems =>
+            prevItems.map(item =>
+                item.id === id ? { ...item, quantity } : item
+            )
+        );
+    }
+
+    function incrementQuantity(id: string) {
+        setInventoryItems(prevItems =>
+            prevItems.map(item =>
+                item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+            )
+        );
+    }
+
+    function decrementQuantity(id: string) {
+        setInventoryItems(prevItems =>
+            prevItems.map(item =>
+                item.id === id && item.quantity > 0 ? { ...item, quantity: item.quantity - 1 } : item
+            )
+        );
     }
 }
 
