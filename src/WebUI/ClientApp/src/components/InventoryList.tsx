@@ -56,11 +56,18 @@ function InventoryList() {
             </tbody>
         </table>;
 
+    const totalQuantity = inventoryItems?.reduce((acc, item) => acc + item.quantity, 0);
+    const totalPrice = inventoryItems?.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
     return (
         <div>
             <h2>Inventory</h2>
             {contents}
+            <div>
+                <p>Total Quantity: {totalQuantity}</p>
+                <p>Total Price: ${totalPrice? totalPrice.toFixed(2) : 0}</p>
+                <button onClick={purchaseItems} disabled={totalQuantity === 0}>Purchase</button>
+            </div>
         </div>
     );
 
@@ -92,6 +99,36 @@ function InventoryList() {
                 item.id === id && item.quantity > 0 ? { ...item, quantity: item.quantity - 1 } : item
             )
         );
+    }
+
+    async function purchaseItems() {
+        const itemsToPurchase: { [key: string]: number } = {};
+        inventoryItems.forEach(item => {
+            if (item.quantity > 0) {
+                itemsToPurchase[item.id] = item.quantity;
+            }
+        });
+
+        const payload = {
+            inventoryItemsToPurchase: itemsToPurchase
+        };
+
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        };
+
+        try {
+            const response = await fetch('inventory', requestOptions);
+            if (response.ok) {
+                console.log('Items purchased successfully!');
+            } else {
+                console.error('Failed to purchase items:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Failed to purchase items:', error.message);
+        }
     }
 }
 
