@@ -4,6 +4,7 @@ using FluentAssertions;
 using Moq;
 using MusicStore.Application.Common.Interfaces;
 using MockQueryable.Moq;
+using MusicStore.Application.Common.Models;
 
 namespace MusicStore.Application.UnitTests.Inventory.Queries.GetInventory;
 

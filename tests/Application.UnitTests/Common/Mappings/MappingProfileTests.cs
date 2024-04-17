@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Serialization;
 using AutoMapper;
 using MusicStore.Application.Common.Mappings;
-using MusicStore.Application.Inventory.Queries.GetInventory;
+using MusicStore.Application.Common.Models;
 
 namespace MusicStore.Application.UnitTests.Common.Mappings;
 

@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using MusicStore.Application.Common.Models;
 using MusicStore.Application.Inventory.Queries.GetInventory;
 using MusicStore.WebUI.Controllers;
 using MusicStore.Application.Inventory.Commands.PurchaseInventoryItems;

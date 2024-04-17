@@ -1,6 +1,6 @@
 ﻿using MusicStore.Application.Common.Mappings;
 
-namespace MusicStore.Application.Inventory.Queries.GetInventory;
+namespace MusicStore.Application.Common.Models;
 
 public class InventoryItem : IMapFrom<Domain.Entities.InventoryItem>
 {
