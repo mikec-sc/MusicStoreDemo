@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface InventoryItem {
     id: string;
@@ -60,7 +61,9 @@ function InventoryList() {
             <tbody>
                 {filteredItems.map(inventoryItem =>
                     <tr key={inventoryItem.id}>
-                        <td>{inventoryItem.title}</td>
+                        <td>
+                            <Link to={`/${inventoryItem.id}`}>{inventoryItem.title}</Link>
+                        </td>
                         <td>{inventoryItem.artist}</td>
                         <td>{inventoryItem.year}</td>
                         <td>{inventoryItem.genre}</td>
