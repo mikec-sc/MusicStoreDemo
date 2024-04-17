@@ -13,6 +13,7 @@ interface InventoryItem {
 
 function InventoryList() {
     const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>();
+    const [purchaseStatus, setPurchaseStatus] = useState<string>('');
 
     useEffect(() => {
         populateInventoryItems();
@@ -65,8 +66,9 @@ function InventoryList() {
             {contents}
             <div>
                 <p>Total Quantity: {totalQuantity}</p>
-                <p>Total Price: ${totalPrice? totalPrice.toFixed(2) : 0}</p>
+                <p>Total Price: ${totalPrice ? totalPrice.toFixed(2) : 0}</p>
                 <button onClick={purchaseItems} disabled={totalQuantity === 0}>Purchase</button>
+                <p>{purchaseStatus}</p>
             </div>
         </div>
     );
@@ -122,12 +124,14 @@ function InventoryList() {
         try {
             const response = await fetch('inventory', requestOptions);
             if (response.ok) {
-                console.log('Items purchased successfully!');
+                setPurchaseStatus('Items purchased successfully!');
+                // refresh inventory after successful purchase, could do for other events too?
+                populateInventoryItems();
             } else {
-                console.error('Failed to purchase items:', response.statusText);
+                setPurchaseStatus('Failed to purchase items: ' + response.statusText);
             }
         } catch (error) {
-            console.error('Failed to purchase items:', error.message);
+            setPurchaseStatus('Failed to purchase items: ' + error.message);
         }
     }
 }

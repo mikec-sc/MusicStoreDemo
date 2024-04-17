@@ -91,3 +91,4 @@ This project is licensed under the [MIT License](LICENSE).
 - Improve the front-end to group by artist/year and improve the structure
 - Add styles (with bootstrap perhaps or some custom BEM + SASS)
 - Support actual DBs instead of InMemory EF DB
+- Send useful messages to the frontend when there are errors
