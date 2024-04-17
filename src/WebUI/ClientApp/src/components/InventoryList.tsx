@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface InventoryItem {
     id: string;
@@ -12,29 +12,53 @@ interface InventoryItem {
 }
 
 function InventoryList() {
-    const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>();
+    const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>([]);
+    const [sortedColumn, setSortedColumn] = useState<string>('');
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+    const [filterText, setFilterText] = useState<string>('');
     const [purchaseStatus, setPurchaseStatus] = useState<string>('');
 
     useEffect(() => {
         populateInventoryItems();
     }, []);
 
-    const contents = inventoryItems === undefined
+    const sortedItems = [...inventoryItems].sort((a, b) => {
+        if (sortedColumn === 'title') {
+            return sortDirection === 'asc' ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title);
+        } else if (sortedColumn === 'artist') {
+            return sortDirection === 'asc' ? a.artist.localeCompare(b.artist) : b.artist.localeCompare(a.artist);
+        } else if (sortedColumn === 'year') {
+            return sortDirection === 'asc' ? a.year - b.year : b.year - a.year;
+        } else if (sortedColumn === 'genre') {
+            return sortDirection === 'asc' ? a.genre.localeCompare(b.genre) : b.genre.localeCompare(a.genre);
+        } else if (sortedColumn === 'price') {
+            return sortDirection === 'asc' ? a.price - b.price : b.price - a.price;
+        } else if (sortedColumn === 'stockCount') {
+            return sortDirection === 'asc' ? a.stockCount - b.stockCount : b.stockCount - a.stockCount;
+        }
+        return 0;
+    });
+
+    const filteredItems = sortedItems.filter(item =>
+        item.title.toLowerCase().includes(filterText.toLowerCase())
+    );
+
+    const contents = inventoryItems === undefined || filteredItems.length === 0
         ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
         : <table className="">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Artist</th>
-                    <th>Year</th>
-                    <th>Genre</th>
-                    <th>Price</th>
-                    <th>Stock Count</th>
+                    <th onClick={() => handleSort('title')}>Title {sortedColumn === 'title' && renderSortArrow()}</th>
+                    <th onClick={() => handleSort('artist')}>Artist {sortedColumn === 'artist' && renderSortArrow()}</th>
+                    <th onClick={() => handleSort('year')}>Year {sortedColumn === 'year' && renderSortArrow()}</th>
+                    <th onClick={() => handleSort('genre')}>Genre {sortedColumn === 'genre' && renderSortArrow()}</th>
+                    <th onClick={() => handleSort('price')}>Price {sortedColumn === 'price' && renderSortArrow()}</th>
+                    <th onClick={() => handleSort('stockCount')}>Stock Count {sortedColumn === 'stockCount' && renderSortArrow()}</th>
                     <th>Quantity</th>
                 </tr>
             </thead>
             <tbody>
-                {inventoryItems.map(inventoryItem =>
+                {filteredItems.map(inventoryItem =>
                     <tr key={inventoryItem.id}>
                         <td>{inventoryItem.title}</td>
                         <td>{inventoryItem.artist}</td>
@@ -57,12 +81,18 @@ function InventoryList() {
             </tbody>
         </table>;
 
-    const totalQuantity = inventoryItems?.reduce((acc, item) => acc + item.quantity, 0);
-    const totalPrice = inventoryItems?.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    const totalQuantity = inventoryItems.reduce((acc, item) => acc + item.quantity, 0);
+    const totalPrice = inventoryItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
     return (
         <div>
             <h2>Inventory</h2>
+            <input
+                type="text"
+                placeholder="Filter by album name"
+                value={filterText}
+                onChange={(e) => setFilterText(e.target.value)}
+            />
             {contents}
             <div>
                 <p>Total Quantity: {totalQuantity}</p>
@@ -133,6 +163,19 @@ function InventoryList() {
         } catch (error) {
             setPurchaseStatus('Failed to purchase items: ' + error.message);
         }
+    }
+
+    function handleSort(column: string) {
+        if (column === sortedColumn) {
+            setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+        } else {
+            setSortedColumn(column);
+            setSortDirection('asc');
+        }
+    }
+
+    function renderSortArrow() {
+        return sortDirection === 'asc' ? <span>&uarr;</span> : <span>&darr;</span>;
     }
 }
 
